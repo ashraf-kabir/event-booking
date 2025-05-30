@@ -37,5 +37,8 @@ func createEvent(context *gin.Context) {
 
 	event.Id = 1
 	event.UserId = 1
+
+	event.SaveEvent()
+
 	context.JSON(http.StatusCreated, gin.H{"error": false, "message": "Event created!", "event": event})
 }
