@@ -13,7 +13,6 @@ type Event struct {
 	Location    string    `json:"location" binding:"required"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
-	DeletedAt   time.Time `json:"deleted_at"`
 }
 
 var events []Event
@@ -39,6 +38,26 @@ func (e Event) SaveEvent() error {
 	return err
 }
 
-func GetAllEvents() []Event {
-	return events
+func GetAllEvents() ([]Event, error) {
+	query := `SELECT * FROM events`
+	rows, err := db.DB.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var events []Event
+
+	for rows.Next() {
+		var event Event
+		err := rows.Scan(&event.Id, &event.UserId, &event.Name, &event.Description, &event.Location, &event.CreatedAt, &event.UpdatedAt)
+
+		if err != nil {
+			return nil, err
+		}
+
+		events = append(events, event)
+	}
+
+	return events, nil
 }
