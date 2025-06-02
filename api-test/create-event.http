@@ -3,7 +3,7 @@ content-type: application/json
 
 {
   "user_id": 1,
-  "name": "Test Event",
-  "description": "Test Description",
-  "location": "Test Location"
+  "name": "Test Event 2",
+  "description": "Test Description 2",
+  "location": "Test Location 2"
 }
