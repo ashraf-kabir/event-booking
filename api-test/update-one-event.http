@@ -1,0 +1,9 @@
+PUT http://localhost:8080/api/v1/event/1
+content-type: application/json
+
+{
+  "user_id": 1,
+  "name": "Updated Name",
+  "description": "Updated description",
+  "location": "Some location"
+}
