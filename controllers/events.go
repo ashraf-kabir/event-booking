@@ -45,6 +45,8 @@ func CreateEvent(context *gin.Context) {
 
 	event.Id = 1
 	event.UserId = 1
+	event.CreatedAt = time.Now()
+	event.UpdatedAt = time.Now()
 
 	err = event.SaveEvent()
 	if err != nil {
@@ -77,7 +79,7 @@ func UpdateEvent(context *gin.Context) {
 		return
 	}
 
-	updatedEvent.Id = int(eventId)
+	updatedEvent.Id = eventId
 	updatedEvent.UpdatedAt = time.Now()
 	err = updatedEvent.UpdateEvent()
 	if err != nil {
