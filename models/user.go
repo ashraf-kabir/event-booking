@@ -1,6 +1,7 @@
 package models
 
 import (
+	"errors"
 	"event-booking/db"
 	"event-booking/utils"
 	"time"
@@ -8,8 +9,6 @@ import (
 
 type User struct {
 	Id        int64     `json:"id"`
-	FirstName string    `json:"first_name" binding:"required"`
-	LastName  string    `json:"last_name" binding:"required"`
 	Email     string    `json:"email" binding:"required"`
 	Password  string    `json:"password" binding:"required"`
 	CreatedAt time.Time `json:"created_at"`
@@ -17,7 +16,7 @@ type User struct {
 }
 
 func (u User) SaveUser() error {
-	query := `INSERT INTO USERS(first_name, last_name, email, password, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)`
+	query := `INSERT INTO USERS(email, password, created_at, updated_at) VALUES (?, ?, ?, ?)`
 	stmt, err := db.DB.Prepare(query)
 
 	if err != nil {
@@ -30,7 +29,7 @@ func (u User) SaveUser() error {
 		return err
 	}
 
-	result, err := stmt.Exec(u.FirstName, u.LastName, u.Email, hashedPassword, u.CreatedAt, u.UpdatedAt)
+	result, err := stmt.Exec(u.Email, hashedPassword, u.CreatedAt, u.UpdatedAt)
 
 	if err != nil {
 		return err
@@ -40,4 +39,24 @@ func (u User) SaveUser() error {
 
 	u.Id = id
 	return err
+}
+
+func (u User) ValidateCredentials() error {
+	query := `SELECT password FROM users WHERE email = ?`
+	row := db.DB.QueryRow(query, u.Email)
+
+	var retrievePassword string
+	err := row.Scan(&retrievePassword)
+
+	if err != nil {
+		return err
+	}
+
+	isValidPassword := utils.CheckPasswordHash(u.Password, retrievePassword)
+
+	if !isValidPassword {
+		return errors.New("invalid credentials")
+	}
+
+	return nil
 }

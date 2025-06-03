@@ -2,9 +2,10 @@ package controllers
 
 import (
 	"event-booking/models"
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
 func SignUp(context *gin.Context) {
@@ -27,4 +28,24 @@ func SignUp(context *gin.Context) {
 	}
 
 	context.JSON(http.StatusCreated, gin.H{"error": false, "message": "User created successfully!"})
+}
+
+func Login(context *gin.Context) {
+	var user models.User
+
+	err := context.ShouldBindJSON(&user)
+
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": true, "message": err.Error()})
+		return
+	}
+
+	err = user.ValidateCredentials()
+
+	if err != nil {
+		context.JSON(http.StatusUnauthorized, gin.H{"error": true, "message": "could not authenticate"})
+		return
+	}
+
+	context.JSON(http.StatusCreated, gin.H{"error": false, "message": "Success"})
 }
