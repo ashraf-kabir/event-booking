@@ -2,6 +2,7 @@ package models
 
 import (
 	"event-booking/db"
+	"event-booking/utils"
 	"time"
 )
 
@@ -24,7 +25,12 @@ func (u User) SaveUser() error {
 	}
 	defer stmt.Close()
 
-	result, err := stmt.Exec(u.FirstName, u.LastName, u.Email, u.Password, u.CreatedAt, u.UpdatedAt)
+	hashedPassword, err := utils.HashPassword(u.Password)
+	if err != nil {
+		return err
+	}
+
+	result, err := stmt.Exec(u.FirstName, u.LastName, u.Email, hashedPassword, u.CreatedAt, u.UpdatedAt)
 
 	if err != nil {
 		return err
