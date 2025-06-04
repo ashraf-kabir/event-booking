@@ -2,10 +2,12 @@ package controllers
 
 import (
 	"event-booking/models"
-	"github.com/gin-gonic/gin"
+	"event-booking/utils"
 	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
 func GetEvents(context *gin.Context) {
@@ -36,8 +38,21 @@ func GetOneEvent(context *gin.Context) {
 }
 
 func CreateEvent(context *gin.Context) {
+	token := context.Request.Header.Get("Authorization")
+
+	if token == "" {
+		context.JSON(http.StatusUnauthorized, gin.H{"error": true, "message": "Not authorized"})
+		return
+	}
+
+	err := utils.VerifyToken(token)
+	if err != nil {
+		context.JSON(http.StatusUnauthorized, gin.H{"error": true, "message": "Not authorized"})
+		return
+	}
+
 	var event models.Event
-	err := context.ShouldBindJSON(&event)
+	err = context.ShouldBindJSON(&event)
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": true, "message": err.Error()})
 		return

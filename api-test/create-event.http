@@ -1,9 +1,10 @@
 POST http://localhost:8080/api/v1/event
-content-type: application/json
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AZXhhbXBsZS5jb20iLCJleHAiOjE3NDkwNDQ5ODUsInVzZXJJZCI6MH0.Twux8zZ2Cwrt6wG4Ep6Ip0F0QmOwhBRlBZPmANRSTwU
 
 {
   "user_id": 1,
-  "name": "Test Event 2",
-  "description": "Test Description 2",
-  "location": "Test Location 2"
+  "name": "Test Event",
+  "description": "Test Description",
+  "location": "Test Location"
 }
