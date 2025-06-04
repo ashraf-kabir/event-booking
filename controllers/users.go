@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"event-booking/models"
+	"event-booking/utils"
 	"net/http"
 	"time"
 
@@ -43,9 +44,16 @@ func Login(context *gin.Context) {
 	err = user.ValidateCredentials()
 
 	if err != nil {
-		context.JSON(http.StatusUnauthorized, gin.H{"error": true, "message": "could not authenticate"})
+		context.JSON(http.StatusUnauthorized, gin.H{"error": true, "message": "Could not authenticate"})
 		return
 	}
 
-	context.JSON(http.StatusCreated, gin.H{"error": false, "message": "Success"})
+	token, err := utils.GenerateToken(user.Email, user.Id)
+
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"error": true, "message": "Could not authenticate"})
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{"error": false, "message": "Success", "token": token})
 }
