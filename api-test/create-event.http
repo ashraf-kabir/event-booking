@@ -1,9 +1,9 @@
 POST http://localhost:8080/api/v1/events
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtyb29zQGV4YW1wbGUuY29tIiwiZXhwIjoxNzQ5MTEyMDM4LCJ1c2VySWQiOjJ9.GgQhjq9XRi06mQvj3dtX6EdZMhMrgl4jnxC55OLtgh4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtyb29zQGV4YW1wbGUuY29tIiwiZXhwIjoxNzQ5MTMzNDY0LCJ1c2VySWQiOjF9.7EYEjwzGyF3iiywrDxL5fkfKer9_l0ou-K-5BlFgRCc
 
 {
-  "name": "Test Event 3",
-  "description": "Test Description 3",
-  "location": "Test Location 3"
+  "name": "Test Event 1",
+  "description": "Test Description 1",
+  "location": "Test Location 1"
 }
