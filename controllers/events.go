@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"event-booking/models"
-	"event-booking/utils"
 	"net/http"
 	"strconv"
 	"time"
@@ -38,26 +37,14 @@ func GetOneEvent(context *gin.Context) {
 }
 
 func CreateEvent(context *gin.Context) {
-	token := context.Request.Header.Get("Authorization")
-
-	if token == "" {
-		context.JSON(http.StatusUnauthorized, gin.H{"error": true, "message": "Not authorized"})
-		return
-	}
-
-	userId, err := utils.VerifyToken(token)
-	if err != nil {
-		context.JSON(http.StatusUnauthorized, gin.H{"error": true, "message": "Not authorized"})
-		return
-	}
-
 	var event models.Event
-	err = context.ShouldBindJSON(&event)
+	err := context.ShouldBindJSON(&event)
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": true, "message": err.Error()})
 		return
 	}
 
+	userId := context.GetInt64("userId")
 	event.UserId = userId
 	event.CreatedAt = time.Now()
 	event.UpdatedAt = time.Now()
