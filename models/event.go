@@ -7,7 +7,7 @@ import (
 
 type Event struct {
 	Id          int64     `json:"id"`
-	UserId      int64     `json:"user_id" binding:"required"`
+	UserId      int64     `json:"user_id"`
 	Name        string    `json:"name" binding:"required"`
 	Description string    `json:"description" binding:"required"`
 	Location    string    `json:"location" binding:"required"`
@@ -17,7 +17,7 @@ type Event struct {
 
 var _ []Event
 
-func (event Event) SaveEvent() error {
+func (event *Event) SaveEvent() error {
 	query := `
 		INSERT INTO events (user_id, name, description, location, created_at, updated_at)
 			VALUES (?, ?, ?, ?, ?, ?)`
