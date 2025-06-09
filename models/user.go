@@ -41,7 +41,7 @@ func (u User) SaveUser() error {
 	return err
 }
 
-// pointer to user so that it gets updated
+// ValidateCredentials pointer to user so that it gets updated
 func (u *User) ValidateCredentials() error {
 	query := `SELECT id, password FROM users WHERE email = ?`
 	row := db.DB.QueryRow(query, u.Email)

@@ -3,7 +3,6 @@ package routes
 import (
 	"event-booking/controllers"
 	"event-booking/middlewares"
-
 	"github.com/gin-gonic/gin"
 )
 

@@ -2,11 +2,10 @@ package controllers
 
 import (
 	"event-booking/models"
+	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
 	"time"
-
-	"github.com/gin-gonic/gin"
 )
 
 func GetEvents(context *gin.Context) {

@@ -2,9 +2,8 @@ package middlewares
 
 import (
 	"event-booking/utils"
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 func Authenticate(context *gin.Context) {

@@ -2,9 +2,8 @@ package utils
 
 import (
 	"errors"
-	"time"
-
 	"github.com/golang-jwt/jwt/v5"
+	"time"
 )
 
 const secretKey = "iweg3hkdgfhs4dfs"
