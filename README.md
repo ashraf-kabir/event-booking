@@ -2,7 +2,7 @@
 
 ### Install Dependencies:
 
-```go
+```bash
 go get -u github.com/gin-gonic/gin
 go get github.com/mattn/go -sqlite3
 go get -u golang.org/x/crypto/bcrypt
@@ -11,8 +11,8 @@ go get -u github.com/golang-jwt/jwt/v5
 
 ### To serve the project
 
-```go
-go run.
+```bash
+go run .
 ```
 
 ### To build the project for development:
