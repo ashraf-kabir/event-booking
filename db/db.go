@@ -2,12 +2,13 @@ package db
 
 import (
 	"database/sql"
+
 	_ "github.com/mattn/go-sqlite3"
 )
 
 var DB *sql.DB
 
-func InitDB() {
+func InitSqliteDB() {
 	var err error
 	DB, err = sql.Open("sqlite3", "event_booking.db")
 
@@ -70,5 +71,14 @@ func createTables() {
 
 	if err != nil {
 		panic("Could not create registrations table")
+	}
+}
+
+func CloseSqlite3DB() {
+	if DB != nil {
+		err := DB.Close()
+		if err != nil {
+			panic("Could not close database connection")
+		}
 	}
 }

@@ -7,6 +7,9 @@ go get -u github.com/gin-gonic/gin
 go get github.com/mattn/go -sqlite3
 go get -u golang.org/x/crypto/bcrypt
 go get -u github.com/golang-jwt/jwt/v5
+go get github.com/gin-contrib/cors
+go get github.com/joho/godotenv
+go get -u github.com/go-sql-driver/mysql
 ```
 
 ### To serve the project
